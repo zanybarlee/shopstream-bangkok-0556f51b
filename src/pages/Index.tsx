@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Heart, ShoppingBag, Star, Percent } from "lucide-react";
 import { ResizablePanel, ResizablePanelGroup, ResizableHandle } from "@/components/ui/resizable";
@@ -6,7 +7,7 @@ import { GripHorizontal, Minimize2, Maximize2 } from "lucide-react";
 const Index = () => {
   const [currentCategory, setCurrentCategory] = useState("all");
   const [isDetached, setIsDetached] = useState(false);
-  const [position, setPosition] = useState({ x: window.innerWidth - 420, y: window.innerHeight - 620 });
+  const [position, setPosition] = useState({ x: window.innerWidth - 520, y: window.innerHeight - 720 });
   const [isDragging, setIsDragging] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
 
@@ -62,14 +63,19 @@ const Index = () => {
   ];
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (!isDetached) {
+      setIsDetached(true);
+    }
+    
     setIsDragging(true);
     const startX = e.pageX - position.x;
     const startY = e.pageY - position.y;
 
     const handleMouseMove = (e: MouseEvent) => {
+      e.preventDefault();
       setPosition({
-        x: Math.min(Math.max(0, e.pageX - startX), window.innerWidth - 400),
-        y: Math.min(Math.max(0, e.pageY - startY), window.innerHeight - 600)
+        x: Math.min(Math.max(0, e.pageX - startX), window.innerWidth - 500),
+        y: Math.min(Math.max(0, e.pageY - startY), window.innerHeight - 700)
       });
     };
 
@@ -97,12 +103,16 @@ const Index = () => {
         style={isDetached ? { 
           left: `${position.x}px`, 
           top: `${position.y}px`,
-          width: isMinimized ? '200px' : '400px',
-          height: isMinimized ? '40px' : '600px'
-        } : undefined}
+          width: isMinimized ? '200px' : '500px',
+          height: isMinimized ? '40px' : '700px',
+          cursor: isDragging ? 'grabbing' : 'grab'
+        } : {
+          width: isMinimized ? '200px' : '500px',
+          height: isMinimized ? '40px' : '700px'
+        }}
       >
         <div 
-          className="bg-white rounded-t-lg shadow-lg p-2 flex items-center justify-between cursor-move"
+          className="bg-white rounded-t-lg shadow-lg p-2 flex items-center justify-between select-none"
           onMouseDown={handleMouseDown}
         >
           <div className="flex items-center gap-2">
