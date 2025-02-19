@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Heart, ShoppingBag, Star, Youtube } from "lucide-react";
+import { Heart, ShoppingBag, Star, Youtube, Percent } from "lucide-react";
 
 const Index = () => {
   const [currentCategory, setCurrentCategory] = useState("all");
@@ -11,6 +10,45 @@ const Index = () => {
     { id: "health", name: "Health" },
     { id: "home", name: "Home" },
     { id: "food", name: "Food" },
+  ];
+
+  const featuredProducts = [
+    {
+      id: 1,
+      name: "Wacoal Beauty Lingerie Set",
+      price: 2999,
+      discountedPrice: 1799,
+      rating: 4.8,
+      reviews: 128,
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+    },
+    {
+      id: 2,
+      name: "BEACKY Smart Watch Pro",
+      price: 4999,
+      discountedPrice: 3299,
+      rating: 4.5,
+      reviews: 256,
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e",
+    },
+    {
+      id: 3,
+      name: "Thai Herbal Spa Set",
+      price: 1899,
+      discountedPrice: 1299,
+      rating: 4.7,
+      reviews: 89,
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    },
+    {
+      id: 4,
+      name: "POPHISO Pet Care Kit",
+      price: 999,
+      discountedPrice: 649,
+      rating: 4.6,
+      reviews: 167,
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    },
   ];
 
   return (
@@ -81,34 +119,48 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-12">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h3 className="text-2xl font-bold mb-8 text-center">Featured Products</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
+          <h3 className="text-3xl font-bold mb-2 text-center">Featured Products</h3>
+          <p className="text-gray-600 text-center mb-12">Discover our most popular items</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredProducts.map((product) => (
               <div
-                key={item}
-                className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow animate-fade-up"
+                key={product.id}
+                className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 animate-fade-up"
               >
                 <div className="aspect-square bg-gray-100 relative overflow-hidden">
                   <img
-                    src={`/placeholder.svg`}
-                    alt="Product"
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium flex items-center">
+                    <Percent className="w-4 h-4 mr-1" />
+                    {Math.round(((product.price - product.discountedPrice) / product.price) * 100)}% OFF
+                  </div>
                   <button className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-sm hover:text-primary transition-colors">
                     <Heart className="w-5 h-5" />
                   </button>
                 </div>
-                <div className="p-4">
-                  <div className="flex items-center mb-2">
-                    <Star className="w-4 h-4 text-yellow-400" />
-                    <span className="text-sm text-gray-600 ml-1">4.5</span>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center">
+                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+                      <span className="text-sm text-gray-400 ml-1">({product.reviews})</span>
+                    </div>
+                    <button className="text-gray-600 hover:text-primary transition-colors">
+                      <ShoppingBag className="w-5 h-5" />
+                    </button>
                   </div>
-                  <h4 className="font-medium mb-1 group-hover:text-primary transition-colors">
-                    Product Name
+                  <h4 className="font-medium mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {product.name}
                   </h4>
-                  <p className="text-gray-600">$99.99</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-primary font-semibold">฿{product.discountedPrice.toLocaleString()}</span>
+                    <span className="text-sm text-gray-400 line-through">฿{product.price.toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             ))}
