@@ -58,6 +58,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Voice Agent iframe */}
+      <iframe 
+        src="http://localhost:3005/"
+        className="fixed bottom-4 right-4 w-[400px] h-[600px] border-0 rounded-lg shadow-lg z-50"
+        allow="microphone"
+      />
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
         <div className="container mx-auto px-4">
