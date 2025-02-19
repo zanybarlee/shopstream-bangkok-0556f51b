@@ -98,7 +98,7 @@ const Index = () => {
       {/* Voice Agent iframe */}
       <div 
         className={`fixed z-50 transition-all duration-300 ${
-          isDetached ? '' : 'bottom-4 right-4'
+          isDetached ? '' : 'bottom-0 left-0 right-0'
         }`}
         style={isDetached ? { 
           left: `${position.x}px`, 
@@ -107,7 +107,7 @@ const Index = () => {
           height: isMinimized ? '40px' : '700px',
           cursor: isDragging ? 'grabbing' : 'grab'
         } : {
-          width: isMinimized ? '200px' : '500px',
+          width: '100%',
           height: isMinimized ? '40px' : '700px'
         }}
       >
