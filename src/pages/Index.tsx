@@ -1,9 +1,14 @@
-
 import { useState } from "react";
 import { Heart, ShoppingBag, Star, Percent } from "lucide-react";
+import { ResizablePanel, ResizablePanelGroup, ResizableHandle } from "@/components/ui/resizable";
+import { GripHorizontal, Minimize2, Maximize2 } from "lucide-react";
 
 const Index = () => {
   const [currentCategory, setCurrentCategory] = useState("all");
+  const [isDetached, setIsDetached] = useState(false);
+  const [position, setPosition] = useState({ x: window.innerWidth - 420, y: window.innerHeight - 620 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   const categories = [
     { id: "fashion", name: "Fashion" },
@@ -56,14 +61,84 @@ const Index = () => {
     },
   ];
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    const startX = e.pageX - position.x;
+    const startY = e.pageY - position.y;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({
+        x: Math.min(Math.max(0, e.pageX - startX), window.innerWidth - 400),
+        y: Math.min(Math.max(0, e.pageY - startY), window.innerHeight - 600)
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const toggleMinimize = () => {
+    setIsMinimized(!isMinimized);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Voice Agent iframe */}
-      <iframe 
-        src="http://localhost:3005/"
-        className="fixed bottom-4 right-4 w-[400px] h-[600px] border-0 rounded-lg shadow-lg z-50"
-        allow="microphone"
-      />
+      <div 
+        className={`fixed z-50 transition-all duration-300 ${
+          isDetached ? '' : 'bottom-4 right-4'
+        }`}
+        style={isDetached ? { 
+          left: `${position.x}px`, 
+          top: `${position.y}px`,
+          width: isMinimized ? '200px' : '400px',
+          height: isMinimized ? '40px' : '600px'
+        } : undefined}
+      >
+        <div 
+          className="bg-white rounded-t-lg shadow-lg p-2 flex items-center justify-between cursor-move"
+          onMouseDown={handleMouseDown}
+        >
+          <div className="flex items-center gap-2">
+            <GripHorizontal className="w-4 h-4 text-gray-500" />
+            <span className="text-sm font-medium">Voice Agent</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={toggleMinimize}
+              className="p-1 hover:bg-gray-100 rounded"
+            >
+              {isMinimized ? 
+                <Maximize2 className="w-4 h-4 text-gray-500" /> : 
+                <Minimize2 className="w-4 h-4 text-gray-500" />
+              }
+            </button>
+            <button 
+              onClick={() => setIsDetached(!isDetached)}
+              className="p-1 hover:bg-gray-100 rounded"
+            >
+              {isDetached ? "📌" : "↗️"}
+            </button>
+          </div>
+        </div>
+        {!isMinimized && (
+          <ResizablePanelGroup direction="vertical">
+            <ResizablePanel>
+              <iframe 
+                src="http://localhost:3005/"
+                className="w-full h-full border-0 rounded-b-lg shadow-lg"
+                allow="microphone"
+              />
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        )}
+      </div>
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
