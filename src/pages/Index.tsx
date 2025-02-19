@@ -140,14 +140,15 @@ const Index = () => {
         {!isMinimized && (
           <ResizablePanelGroup 
             direction="vertical" 
-            className="overflow-hidden"
+            className="overflow-hidden bg-white"
           >
             <ResizablePanel defaultSize={85}>
-              <div className="w-full h-full overflow-auto">
+              <div className="w-full h-full overflow-auto bg-white">
                 <iframe 
                   src="http://localhost:3005/"
-                  className="w-full h-full border-0 rounded-b-lg shadow-lg"
+                  className="w-full h-full border-0 rounded-b-lg shadow-lg bg-white"
                   allow="microphone"
+                  style={{ backgroundColor: '#FFFFFF' }}
                 />
               </div>
             </ResizablePanel>
