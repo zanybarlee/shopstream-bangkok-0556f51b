@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { Heart, ShoppingBag, Star, Youtube, Percent } from "lucide-react";
+import { Heart, ShoppingBag, Star, Percent } from "lucide-react";
 
 const Index = () => {
   const [currentCategory, setCurrentCategory] = useState("all");
@@ -91,36 +92,6 @@ const Index = () => {
           </div>
         </div>
       </nav>
-
-      {/* Hero Section with Live Stream */}
-      <section className="pt-20 pb-12 bg-gradient-to-r from-pink-50 to-red-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="animate-fade-up">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Live Shopping Experience
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Watch our 24/7 live stream and shop the latest trends
-              </p>
-              <button className="bg-primary text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-colors inline-flex items-center">
-                <Youtube className="w-5 h-5 mr-2" />
-                Watch Live
-              </button>
-            </div>
-            <div className="rounded-lg overflow-hidden shadow-xl animate-fade-in">
-              <div className="aspect-video bg-gray-100">
-                <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/live_stream?channel=UC_YOUR_CHANNEL_ID"
-                  frameBorder="0"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Featured Products */}
       <section className="py-16 bg-gray-50">
