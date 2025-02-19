@@ -138,13 +138,15 @@ const Index = () => {
           </div>
         </div>
         {!isMinimized && (
-          <ResizablePanelGroup direction="vertical">
+          <ResizablePanelGroup direction="vertical" className="overflow-hidden">
             <ResizablePanel>
-              <iframe 
-                src="http://localhost:3005/"
-                className="w-full h-full border-0 rounded-b-lg shadow-lg"
-                allow="microphone"
-              />
+              <div className="w-full h-full overflow-auto">
+                <iframe 
+                  src="http://localhost:3005/"
+                  className="w-full h-full border-0 rounded-b-lg shadow-lg"
+                  allow="microphone"
+                />
+              </div>
             </ResizablePanel>
           </ResizablePanelGroup>
         )}
