@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,5 +15,12 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      import Chatbot from "https://www.cens.com.sg/chatflow/dist/web.js"
+      Chatbot.init({
+          chatflowid: "29e335b0-dc23-487a-bd05-b3915650c91d",
+          apiHost: "http://127.0.0.1:3001",
+      })
+    </script>
   </body>
 </html>
